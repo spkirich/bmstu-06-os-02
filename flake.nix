@@ -17,6 +17,16 @@
           man-pages
         ];
 
+        buildPhase = ''
+          gcc server.c -o server
+        '';
+
+        installPhase = ''
+          mkdir -p $out/bin
+
+          mv server $out/bin
+        '';
+
         src = ./.;
       };
 
