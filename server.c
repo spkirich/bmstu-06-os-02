@@ -1,7 +1,6 @@
-#include <netinet/in.h>
 #include <stdio.h>
+#include <netinet/in.h>
 #include <stdlib.h>
-#include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
 
@@ -14,6 +13,14 @@ int main()
   if ((sock = socket(AF_INET, SOCK_STREAM, 0)) == -1)
   {
     perror("Failed to create a socket");
+    exit(1);
+  }
+
+  int val = 1;
+
+  if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val)) == -1)
+  {
+    perror("Failed to set a socket option");
     exit(1);
   }
 
@@ -57,12 +64,13 @@ int main()
     printf("Server %d got: %s\n", getpid(), req);
     sprintf(res, "%d+%s", getpid(), req);
 
-    if (send(conn, res, strlen(res), 0) == -1)
+    if (send(conn, res, sizeof(res), 0) == -1)
     {
       perror("Failed to send a message");
       exit(1);
     }
 
+    printf("Server %d put: %s\n", getpid(), res);
     close(conn);
   }
 

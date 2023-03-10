@@ -18,12 +18,14 @@
         ];
 
         buildPhase = ''
+          gcc client.c -o client
           gcc server.c -o server
         '';
 
         installPhase = ''
           mkdir -p $out/bin
 
+          mv client $out/bin
           mv server $out/bin
         '';
 
