@@ -1,5 +1,5 @@
 {
-  description = "Операционные системы. Лабораторная работа № 2";
+  description = "https://github.com/spkirich/bmstu-06-os-02";
 
   outputs = { self, nixpkgs }:
 
@@ -28,7 +28,7 @@
           mv server $out/bin
         '';
 
-        src = ./.;
+        src = ./src;
       };
 
       devShells.${system}.default = pkgs.mkShell {
