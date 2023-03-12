@@ -1,5 +1,5 @@
 {
-  description = "https://github.com/spkirich/bmstu-06-os-02";
+  description = "Сетевые сокеты и мультиплексирование";
 
   outputs = { self, nixpkgs }:
 
