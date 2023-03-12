@@ -1,5 +1,5 @@
 {
-  description = "Internet sockets";
+  description = "Операционные системы. Лабораторная работа № 2";
 
   outputs = { self, nixpkgs }:
 
@@ -9,12 +9,11 @@
 
     in
     {
-      defaultPackage.${system} = pkgs.stdenv.mkDerivation {
-        name = "bmstu-os-02";
+      packages.${system}.default = pkgs.stdenv.mkDerivation {
+        name = "bmstu-06-os-02";
 
         buildInputs = with pkgs; [
           gcc
-          man-pages
         ];
 
         buildPhase = ''
@@ -30,6 +29,13 @@
         '';
 
         src = ./.;
+      };
+
+      devShells.${system}.default = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          self.packages.${system}.default
+          man-pages
+        ];
       };
 
       formatter.${system} = pkgs.nixpkgs-fmt;
